@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.projetarchi</groupId>
-	<artifactId>exo1</artifactId>
+	<artifactId>recherchemotifs</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>exo1</name>
+	<name>recherchemotifs</name>
 	<description>Spring Boot for archi dist</description>
 	<url/>
 	<licenses>
