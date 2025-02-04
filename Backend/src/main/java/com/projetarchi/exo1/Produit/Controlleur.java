@@ -1,4 +1,4 @@
-package com.projetarchi.projetrechrchemotifs.Produit;
+package com.projetarchi.exo1.Produit;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

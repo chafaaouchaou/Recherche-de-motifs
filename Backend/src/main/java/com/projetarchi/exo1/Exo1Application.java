@@ -1,4 +1,4 @@
-package com.projetarchi.projetrechrchemotifs;
+package com.projetarchi.exo1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
