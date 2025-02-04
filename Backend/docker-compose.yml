@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  database:
+    image: mysql:8
+    container_name: mysql_db_1
+    environment:
+      MYSQL_DATABASE: demo-db
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: mysecretpassword
+    ports:
+      - "3307:3306"  # Expose MySQL on port 3307
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uuser", "-pmysecretpassword"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+  # Spring Boot Application
+  app:
+    build: .
+    container_name: spring_app_1
+    volumes:
+      - .:/app   # Mounts the full project for hot reload
+      - ~/.m2:/root/.m2  # Cache Maven dependencies
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/demo-db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: mysecretpassword
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_DEVTOOLS_RESTART_ENABLED: "true"
+      SPRING_DEVTOOLS_LIVERELOAD_ENABLED: "true"
+    ports:
+      - "9091:9091"
+    networks:
+      - app-network
+
+volumes:
+  mysql_data:
+
+networks:
+  app-network:
+    driver: bridge
