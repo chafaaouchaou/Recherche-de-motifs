@@ -1,10 +1,10 @@
-package com.projetarchi.exo1;
+package com.projetarchi.search;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Exo1ApplicationTests {
+class SearchApplicationTests {
 
 	@Test
 	void contextLoads() {

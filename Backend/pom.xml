@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.projetarchi</groupId>
-	<artifactId>exo1</artifactId>
+	<artifactId>search</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>exo1</name>
+	<name>search</name>
 	<description>Spring Boot for archi dist</description>
 	<url/>
 	<licenses>
@@ -80,12 +80,12 @@
 </dependency>
 
 
-<dependency>
+<!-- <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-devtools</artifactId>
     <scope>runtime</scope>
     <optional>true</optional>
-</dependency>
+</dependency> -->
 
 
 
