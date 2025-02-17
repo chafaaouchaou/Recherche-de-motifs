@@ -92,7 +92,15 @@ public class SearchController {
             results.add(new AlgorithmResult(algoNumber, algoName, response));
         }
         
-        MultiAlgorithmResponse multiResponse = new MultiAlgorithmResponse(generatedText, results);
+        MultiApiRequestData multiApiRequestData = new MultiApiRequestData();
+        multiApiRequestData.ListAlgorithmResultToMultiApiRequestData(results);
+        // System.out.println(multiApiRequestData.toString());
+        GeminiApiClient client = new GeminiApiClient();
+        client.processAndGenerateContent(multiApiRequestData);
+        // System.out.println(client.getApiresponse());
+
+        MultiAlgorithmResponse multiResponse = new MultiAlgorithmResponse(generatedText, results,client.getApiresponse());
+
         return ResponseEntity.ok(multiResponse);
     }
 }

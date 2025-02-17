@@ -5,13 +5,24 @@ import java.util.List;
 public class MultiAlgorithmResponse {
     private String generatedText;
     private List<AlgorithmResult> results;
+    private String AIanalysis;
     
-    public MultiAlgorithmResponse(String generatedText, List<AlgorithmResult> results) {
+    public MultiAlgorithmResponse(String generatedText, List<AlgorithmResult> results, String AIanalysis) {
         this.generatedText = generatedText;
         this.results = results;
+        this.AIanalysis = AIanalysis;
     }
     
     // Getters et setters
+
+    public String getAIanalysis() {
+        return AIanalysis;
+    }
+
+    public void setAIanalysis(String aIanalysis) {
+        AIanalysis = aIanalysis;
+    }
+
     public String getGeneratedText() {
         return generatedText;
     }

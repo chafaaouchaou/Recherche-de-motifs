@@ -35,4 +35,13 @@ public class AlgorithmResult {
     public void setSearchResponse(SearchResponse searchResponse) {
         this.searchResponse = searchResponse;
     }
+
+    @Override
+    public String toString() {
+        return "AlgorithmResult{" +
+                "algorithmNumber=" + algorithmNumber +
+                ", algorithmName='" + algorithmName + '\'' +
+                ", searchResponse=" + searchResponse +
+                '}';
+    }
 }

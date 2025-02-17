@@ -25,4 +25,12 @@ public class WordResult {
     public void setOccurrences(int occurrences) {
         this.occurrences = occurrences;
     }
+
+    @Override
+    public String toString() {
+        return "WordResult{" +
+                "word='" + word + '\'' +
+                ", occurrences=" + occurrences +
+                '}';
+    }
 }

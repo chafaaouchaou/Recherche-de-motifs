@@ -40,4 +40,13 @@ public class SearchResponse {
     public void setWordResults(List<WordResult> wordResults) {
         this.wordResults = wordResults;
     }
+
+    @Override
+    public String toString() {
+        return "SearchResponse{" +
+                "totalWords=" + totalWords +
+                ", executionTime=" + executionTime +
+                ", wordResults=" + wordResults +
+                '}';
+    }
 }
