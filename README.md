@@ -1,29 +1,46 @@
-# 🚀 Guide de Démarrage du Projet  
+# Pattern Matching Algorithms Web Application
 
-## 📥 Cloner le projet  
+This project is a web application that implements and analyzes various pattern matching algorithms. The backend is built with Java Spring Boot, while the frontend is developed using React with TypeScript and Tailwind CSS.
+
+## Features
+
+- Implementation of multiple pattern matching algorithms in Java.
+- A user-friendly frontend to visualize the execution results.
+- Simple and efficient architecture without database dependencies.
+
+## Installation and Usage
+
+### Frontend
+
+To set up and run the frontend, follow these steps:
+
 ```sh
-git clone https://gitlab-dpt-info-sciences.univ-rouen.fr/m1gil/dungeon-master.git
-cd "projet anuel"
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
 ```
 
-## 🏗️ Lancer les services  
+### Backend
 
-### 1️⃣ Démarrer le Frontend (React)  
-```sh
-cd MD
-docker-compose up --build
-```
+Simply run the Spring Boot application. No additional setup is required.
 
-### 2️⃣ Démarrer le Backend (Spring Boot)  
-```sh
-cd ../Backend
-docker-compose up --build
-```
+## Contribution
 
-## 🔄 Hot Reload & Développement  
-Les deux applications (React & Spring Boot) sont configurées avec **hot reload**, ce qui signifie que :  
-- **Toute modification dans le code** sera automatiquement prise en compte **sans reconstruire l'image Docker**.  
-- Vous pouvez développer sans interruption et voir les mises à jour instantanément. 🚀  
+If you want to contribute to this project, here are some possible improvements:
 
-Bon dev ! 😃
+- **User Input**: Allow users to provide their own text instead of automatically generating it.
+- **File Upload**: Enable users to input text via file upload instead of manual entry.
+- **Authentication System**: Implement user authentication and session storage in a database.
+
+## Licence
+
+This project is under GLP license.&#x20;
+
+## Contact
+
+For any inquiries or contributions, feel free to contact me at:
+
+📧 [chafaaouchao@gmail.com](mailto\:chafaaouchao@gmail.com)
 
