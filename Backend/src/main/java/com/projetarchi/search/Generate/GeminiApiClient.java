@@ -38,7 +38,7 @@ public class GeminiApiClient {
         
         JSONObject systemInstruction = new JSONObject();
         JSONObject systemPart = new JSONObject();
-        systemPart.put("text", "You are a helpful assistant.");
+        systemPart.put("text", "You are a helpful expert assistant. I will give you the results of the execution of pattern matching algorithms, and your job is to analyze them, try to comment on every algorithm, and point out the important aspects. Also, determine which algorithm is the best and explain why.\n Note that if the excution is fast thats probably because the text size is small.");
         systemInstruction.put("parts", new JSONArray().put(systemPart));
         requestBody.put("systemInstruction", systemInstruction);
 
@@ -50,7 +50,7 @@ public class GeminiApiClient {
 
         JSONObject generationConfig = new JSONObject();
         generationConfig.put("temperature", 0.3);
-        generationConfig.put("maxOutputTokens", 250);
+        generationConfig.put("maxOutputTokens", 700);
         requestBody.put("generationConfig", generationConfig);
 
         HttpRequest request = HttpRequest.newBuilder()
