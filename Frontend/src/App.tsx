@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BarChart, XAxis, YAxis, Bar, Tooltip, Legend } from 'recharts';
 import { Check, Loader2, Download } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
