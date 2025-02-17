@@ -10,6 +10,11 @@ This project is a web application that implements and analyzes various pattern m
 - A user-friendly frontend to visualize the execution results.
 - Simple and efficient architecture without database dependencies.
 
+
+![Alt text](demoimage.png)
+
+
+
 ## Installation and Usage
 
 ### Frontend
