@@ -75,7 +75,7 @@ const App = () => {
   const handleSearch = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:9091/api/search/text', {
+      const response = await fetch('http://backend-production-d883.up.railway.app:9091/api/search/text', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
