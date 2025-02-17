@@ -112,12 +112,12 @@ const App = () => {
     <div className="flex h-screen bg-gray-50">
     {/* Sidebar - widened to 72 from 64 */}
     <div className="w-72 bg-white p-6 shadow-md">
-      <h2 className="text-xl font-bold mb-6 text-gray-800">Paramètres</h2>
+      <h2 className="text-xl font-bold mb-6 text-gray-800">Settings</h2>
       
       <div className="space-y-8">
         <div>
           <label className="block text-sm font-medium mb-2 text-gray-700">
-            Taille du texte: {textSize}
+          Text size: {textSize}
           </label>
           <input
             type="range"
@@ -132,7 +132,7 @@ const App = () => {
   
         <div>
           <label className="block text-sm font-medium mb-2 text-gray-700">
-            Taille de l'alphabet: {alphabetSize}
+          Alphabet size: {alphabetSize}
           </label>
           <input
             type="range"
@@ -178,7 +178,7 @@ const App = () => {
         </div>
   
         <div>
-          <label className="block text-sm font-medium mb-2 text-gray-700">Algorithmes</label>
+          <label className="block text-sm font-medium mb-2 text-gray-700">Algorithms</label>
           <div className="space-y-2 max-h-48 overflow-y-auto">
             {algorithms.map((algo) => (
               <div
@@ -207,7 +207,7 @@ const App = () => {
           {loading ? (
             <div className="flex items-center justify-center">
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Chargement...
+              Loading...
             </div>
           ) : (
             'Rechercher'
@@ -221,25 +221,25 @@ const App = () => {
       {result && (
         <div className="space-y-8">
           <div className="bg-white rounded-xl shadow-sm p-6 transition-shadow hover:shadow-md">
-            <h3 className="text-lg font-semibold mb-4 text-gray-800">Texte généré</h3>
+            <h3 className="text-lg font-semibold mb-4 text-gray-800">Generated text</h3>
             <button
               onClick={handleDownloadText}
               className="flex items-center space-x-2 px-6 py-3 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors shadow-sm"
             >
               <Download className="w-5 h-5" />
-              <span className="cursor-pointer">Télécharger le texte généré</span>
+              <span className="cursor-pointer">Download the generated text</span>
             </button>
           </div>
   
           <div className="bg-white rounded-xl shadow-sm p-6 transition-shadow hover:shadow-md">
-            <h3 className="text-lg font-semibold mb-6 text-gray-800">Résultats de recherche</h3>
+            <h3 className="text-lg font-semibold mb-6 text-gray-800">Search results</h3>
             <div className="mb-8 flex justify-center">
               <BarChart
                 width={800}
                 height={400}
                 data={result.results.map(r => ({
                   name: r.algorithmName,
-                  'Temps d\'exécution': r.searchResponse.executionTime,
+                  'Execution time': r.searchResponse.executionTime,
                 }))}
                 margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
               >
@@ -247,7 +247,7 @@ const App = () => {
                 <YAxis />
                 <Tooltip contentStyle={{ borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }} />
                 <Legend wrapperStyle={{ paddingTop: '10px' }} />
-                <Bar dataKey="Temps d'exécution" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="Execution time" fill="#3b82f6" radius={[4, 4, 0, 0]} />
               </BarChart>
             </div>
   
@@ -255,10 +255,10 @@ const App = () => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Algorithme</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total des occurrences</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Temps d'exécution</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Détails</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Algorithm</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total occurrences</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Execution time</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -284,7 +284,7 @@ const App = () => {
           </div>
   
           <div className="bg-white rounded-xl shadow-sm p-6 transition-shadow hover:shadow-md">
-            <h3 className="text-lg font-semibold mb-4 text-gray-800">Analyse IA</h3>
+            <h3 className="text-lg font-semibold mb-4 text-gray-800">AI analysis</h3>
             <div className="prose max-w-none">
               <ReactMarkdown>{result.aianalysis}</ReactMarkdown>
             </div>
