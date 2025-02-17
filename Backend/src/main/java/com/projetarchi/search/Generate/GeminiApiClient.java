@@ -50,7 +50,7 @@ public class GeminiApiClient {
 
         JSONObject generationConfig = new JSONObject();
         generationConfig.put("temperature", 0.3);
-        generationConfig.put("maxOutputTokens", 700);
+        generationConfig.put("maxOutputTokens", 400);
         requestBody.put("generationConfig", generationConfig);
 
         HttpRequest request = HttpRequest.newBuilder()

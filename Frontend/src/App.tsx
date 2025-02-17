@@ -34,13 +34,13 @@ interface SearchResult {
 }
 
 const algorithms: Algorithm[] = [
-  { id: 1, name: "Recherche linéaire" },
+  // { id: 1, name: "Recherche linéaire" },
   { id: 2, name: "Boyer-Moore" },
   { id: 3, name: "Horspool" },
   { id: 4, name: "Quick Search" },
-  { id: 5, name: "Naive Search Strncmp (sans boucle rapide ni sentinelle)" },
-  { id: 6, name: "Naive Search Strncmp (avec boucle rapide, sans sentinelle)" },
-  { id: 7, name: "Naive Search Strncmp (avec boucle rapide et sentinelle)" },
+  { id: 5, name: "Naive Search Strncmp" },
+  { id: 6, name: "Naive Search, Strncmp, boucle rapide)" },
+  { id: 7, name: "Naive Search, Strncmp, boucle rapide, sentinelle" },
   { id: 8, name: "Morris-Pratt" },
   { id: 9, name: "Knuth-Morris-Pratt" },
   { id: 10, name: "Naive Internal With Fast Loop With Sentinel" },
