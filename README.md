@@ -2,7 +2,7 @@
 
 This project is a web application that implements and analyzes various pattern matching algorithms. The backend is built with Java Spring Boot, while the frontend is developed using React with TypeScript and Tailwind CSS.
 
-🌐 Live demo: [http://pattern_matching.chafaaouchaou.online:4000/](http://pattern_matching.chafaaouchaou.online:4000/)
+🌐 Live demo: [https://pattern-matching.chafaaouchaou.online/](https://pattern-matching.chafaaouchaou.online/)
 
 ## Features
 

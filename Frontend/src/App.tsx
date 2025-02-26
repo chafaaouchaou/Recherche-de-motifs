@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BarChart, XAxis, YAxis, Bar, Tooltip, Legend } from 'recharts';
 import { Check, Loader2, Download } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
@@ -34,7 +34,7 @@ interface SearchResult {
 }
 
 const algorithms: Algorithm[] = [
-  // { id: 1, name: "Recherche linéaire" },
+  { id: 1, name: "Recherche linéaire" },
   { id: 2, name: "Boyer-Moore" },
   { id: 3, name: "Horspool" },
   { id: 4, name: "Quick Search" },
@@ -49,31 +49,22 @@ const algorithms: Algorithm[] = [
 ];
 
 const App = () => {
-  const [textSize, setTextSize] = useState<number>(100);
-  const [alphabetSize, setAlphabetSize] = useState<number>(4);
-  const [selectedAlgos, setSelectedAlgos] = useState<number[]>([]);
-  const [words, setWords] = useState<string[]>([]);
+  const [textSize, setTextSize] = useState<number>(100000); // Prérempli avec 100000
+  const [alphabetSize, setAlphabetSize] = useState<number>(4); // Prérempli avec 4
+  const [selectedAlgos, setSelectedAlgos] = useState<number[]>([1, 2, 3, 12]); // Préremplis avec les algos demandés
+  const [words, setWords] = useState<string[]>(["abc", "bcd", "aaa"]); // Préremplis avec les mots demandés
   const [newWord, setNewWord] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false); // Initialisé à false
+  const [initialLoading, setInitialLoading] = useState<boolean>(true); // État séparé pour le chargement initial
   const [result, setResult] = useState<SearchResult | null>(null);
 
-  const handleWordAdd = () => {
-    if (newWord && !words.includes(newWord)) {
-      setWords([...words, newWord]);
-      setNewWord("");
+  // Fonction pour faire l'appel API
+  const performSearch = async (isInitialLoad = false) => {
+    // Si c'est une recherche manuelle (pas le chargement initial), on active le loading
+    if (!isInitialLoad) {
+      setLoading(true);
     }
-  };
-
-  const handleAlgoToggle = (id: number) => {
-    if (selectedAlgos.includes(id)) {
-      setSelectedAlgos(selectedAlgos.filter(algo => algo !== id));
-    } else {
-      setSelectedAlgos([...selectedAlgos, id]);
-    }
-  };
-
-  const handleSearch = async () => {
-    setLoading(true);
+    
     try {
       const response = await fetch('https://pattern-matching-api.chafaaouchaou.online/api/search/text', {
         method: 'POST',
@@ -92,8 +83,37 @@ const App = () => {
     } catch (error) {
       console.error('Error:', error);
     } finally {
-      setLoading(false);
+      // On désactive le loading approprié selon le type d'appel
+      if (isInitialLoad) {
+        setInitialLoading(false);
+      } else {
+        setLoading(false);
+      }
     }
+  };
+
+  // Appel API au chargement de la page
+  useEffect(() => {
+    performSearch(true);
+  }, []);
+
+  const handleWordAdd = () => {
+    if (newWord && !words.includes(newWord)) {
+      setWords([...words, newWord]);
+      setNewWord("");
+    }
+  };
+
+  const handleAlgoToggle = (id: number) => {
+    if (selectedAlgos.includes(id)) {
+      setSelectedAlgos(selectedAlgos.filter(algo => algo !== id));
+    } else {
+      setSelectedAlgos([...selectedAlgos, id]);
+    }
+  };
+
+  const handleSearch = () => {
+    performSearch(false); // Indiquer que ce n'est pas le chargement initial
   };
 
   const handleDownloadText = () => {
@@ -198,11 +218,11 @@ const App = () => {
   
         <button
           className={`w-full px-4 py-2 rounded-md text-white shadow-sm transition-colors
-            ${loading || words.length === 0 || selectedAlgos.length === 0 
+            ${loading || initialLoading || words.length === 0 || selectedAlgos.length === 0 
               ? 'bg-gray-400 cursor-not-allowed' 
               : 'bg-blue-500 hover:bg-blue-600'}`}
           onClick={handleSearch}
-          disabled={loading || words.length === 0 || selectedAlgos.length === 0}
+          disabled={loading || initialLoading || words.length === 0 || selectedAlgos.length === 0}
         >
           {loading ? (
             <div className="flex items-center justify-center">
@@ -218,7 +238,7 @@ const App = () => {
   
     {/* Main Content */}
     <div className="flex-1 p-8 overflow-auto">
-      {result && (
+      {(result && !initialLoading) && (
         <div className="space-y-8">
           <div className="bg-white rounded-xl shadow-sm p-6 transition-shadow hover:shadow-md">
             <h3 className="text-lg font-semibold mb-4 text-gray-800">Generated text</h3>
