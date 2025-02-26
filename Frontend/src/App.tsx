@@ -48,6 +48,12 @@ const algorithms: Algorithm[] = [
   { id: 12, name: "Naive Internal" }
 ];
 
+// Données fictives pour le skeleton du graphique
+const skeletonChartData = Array(5).fill(0).map((_, index) => ({
+  name: `Algorithm ${index + 1}`,
+  'Execution time': Math.random() * 50,
+}));
+
 const App = () => {
   const [textSize, setTextSize] = useState<number>(100000); // Prérempli avec 100000
   const [alphabetSize, setAlphabetSize] = useState<number>(4); // Prérempli avec 4
@@ -127,6 +133,40 @@ const App = () => {
     element.click();
     document.body.removeChild(element);
   };
+
+  // Composant pour le skeleton du graphique
+  const ChartSkeleton = () => (
+    <div className="animate-pulse">
+      <div className="h-96 w-full bg-gray-200 rounded-lg"></div>
+    </div>
+  );
+
+  // Composant pour le skeleton du tableau
+  const TableSkeleton = () => (
+    <div className="overflow-hidden shadow-sm rounded-lg border border-gray-200 animate-pulse">
+      <div className="bg-gray-100 p-3">
+        <div className="h-6 bg-gray-200 rounded w-full"></div>
+      </div>
+      {Array(5).fill(0).map((_, index) => (
+        <div key={index} className={`p-4 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} flex space-x-4`}>
+          <div className="h-6 bg-gray-200 rounded w-1/4"></div>
+          <div className="h-6 bg-gray-200 rounded w-1/6"></div>
+          <div className="h-6 bg-gray-200 rounded w-1/6"></div>
+          <div className="h-6 bg-gray-200 rounded w-2/5"></div>
+        </div>
+      ))}
+    </div>
+  );
+
+  // Composant pour le skeleton de l'analyse AI
+  const AiAnalysisSkeleton = () => (
+    <div className="animate-pulse space-y-3">
+      <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+      <div className="h-6 bg-gray-200 rounded w-full"></div>
+      <div className="h-6 bg-gray-200 rounded w-5/6"></div>
+      <div className="h-6 bg-gray-200 rounded w-4/5"></div>
+    </div>
+  );
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -238,7 +278,30 @@ const App = () => {
   
     {/* Main Content */}
     <div className="flex-1 p-8 overflow-auto">
-      {(result && !initialLoading) && (
+      {initialLoading ? (
+        <div className="space-y-8">
+          {/* Skeleton pour le texte généré */}
+          <div className="bg-white rounded-xl shadow-sm p-6 transition-shadow hover:shadow-md">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800">Generated text</h3>
+            <div className="animate-pulse h-10 w-48 bg-gray-200 rounded-md"></div>
+          </div>
+          
+          {/* Skeleton pour les résultats de recherche */}
+          <div className="bg-white rounded-xl shadow-sm p-6 transition-shadow hover:shadow-md">
+            <h3 className="text-lg font-semibold mb-6 text-gray-800">Search results</h3>
+            <div className="mb-8 flex justify-center">
+              <ChartSkeleton />
+            </div>
+            <TableSkeleton />
+          </div>
+          
+          {/* Skeleton pour l'analyse AI */}
+          <div className="bg-white rounded-xl shadow-sm p-6 transition-shadow hover:shadow-md">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800">AI analysis</h3>
+            <AiAnalysisSkeleton />
+          </div>
+        </div>
+      ) : (
         <div className="space-y-8">
           <div className="bg-white rounded-xl shadow-sm p-6 transition-shadow hover:shadow-md">
             <h3 className="text-lg font-semibold mb-4 text-gray-800">Generated text</h3>
@@ -254,59 +317,71 @@ const App = () => {
           <div className="bg-white rounded-xl shadow-sm p-6 transition-shadow hover:shadow-md">
             <h3 className="text-lg font-semibold mb-6 text-gray-800">Search results</h3>
             <div className="mb-8 flex justify-center">
-              <BarChart
-                width={800}
-                height={400}
-                data={result.results.map(r => ({
-                  name: r.algorithmName,
-                  'Execution time': r.searchResponse.executionTime,
-                }))}
-                margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
-              >
-                <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} />
-                <YAxis />
-                <Tooltip contentStyle={{ borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }} />
-                <Legend wrapperStyle={{ paddingTop: '10px' }} />
-                <Bar dataKey="Execution time" fill="#3b82f6" radius={[4, 4, 0, 0]} />
-              </BarChart>
+              {loading ? (
+                <ChartSkeleton />
+              ) : (
+                <BarChart
+                  width={800}
+                  height={400}
+                  data={result?.results.map(r => ({
+                    name: r.algorithmName,
+                    'Execution time': r.searchResponse.executionTime,
+                  }))}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
+                >
+                  <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} />
+                  <YAxis />
+                  <Tooltip contentStyle={{ borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }} />
+                  <Legend wrapperStyle={{ paddingTop: '10px' }} />
+                  <Bar dataKey="Execution time" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              )}
             </div>
   
-            <div className="overflow-hidden shadow-sm rounded-lg border border-gray-200">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Algorithm</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total occurrences</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Execution time</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {result.results.map((algResult, index) => (
-                    <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{algResult.algorithmName}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{algResult.searchResponse.totalWords}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{algResult.searchResponse.executionTime}ms</td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
-                        <div className="space-y-1">
-                          {algResult.searchResponse.wordResults.map((wordResult, idx) => (
-                            <p key={idx}>
-                              "{wordResult.word}": {wordResult.occurrences} occurrences
-                            </p>
-                          ))}
-                        </div>
-                      </td>
+            {loading ? (
+              <TableSkeleton />
+            ) : (
+              <div className="overflow-hidden shadow-sm rounded-lg border border-gray-200">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Algorithm</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total occurrences</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Execution time</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {result?.results.map((algResult, index) => (
+                      <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{algResult.algorithmName}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{algResult.searchResponse.totalWords}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{algResult.searchResponse.executionTime}ms</td>
+                        <td className="px-6 py-4 text-sm text-gray-500">
+                          <div className="space-y-1">
+                            {algResult.searchResponse.wordResults.map((wordResult, idx) => (
+                              <p key={idx}>
+                                "{wordResult.word}": {wordResult.occurrences} occurrences
+                              </p>
+                            ))}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
   
           <div className="bg-white rounded-xl shadow-sm p-6 transition-shadow hover:shadow-md">
             <h3 className="text-lg font-semibold mb-4 text-gray-800">AI analysis</h3>
             <div className="prose max-w-none">
-              <ReactMarkdown>{result.aianalysis}</ReactMarkdown>
+              {loading ? (
+                <AiAnalysisSkeleton />
+              ) : (
+                <ReactMarkdown>{result?.aianalysis || ""}</ReactMarkdown>
+              )}
             </div>
           </div>
         </div>
