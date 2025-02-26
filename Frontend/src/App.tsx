@@ -49,16 +49,16 @@ const algorithms: Algorithm[] = [
 ];
 
 const App = () => {
-  const [textSize, setTextSize] = useState<number>(100000); // Prérempli avec 100000
-  const [alphabetSize, setAlphabetSize] = useState<number>(4); // Prérempli avec 4
-  const [selectedAlgos, setSelectedAlgos] = useState<number[]>([1, 2, 3, 12]); // Préremplis avec les algos demandés
-  const [words, setWords] = useState<string[]>(["abc", "bcd", "aaa"]); // Préremplis avec les mots demandés
+  const [textSize, setTextSize] = useState<number>(100000); 
+  const [alphabetSize, setAlphabetSize] = useState<number>(4); 
+  const [selectedAlgos, setSelectedAlgos] = useState<number[]>([2, 3, 4, 12]); 
+  const [words, setWords] = useState<string[]>(["abc", "bcd", "aaa"]); 
   const [newWord, setNewWord] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const [result, setResult] = useState<SearchResult | null>(null);
 
-  // Fonction pour faire l'appel API
+
   const performSearch = async (isInitialLoad = false) => {
     // Si c'est une recherche manuelle (pas le chargement initial), on active le loading
     if (!isInitialLoad) {
