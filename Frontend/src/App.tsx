@@ -75,7 +75,7 @@ const App = () => {
   const handleSearch = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://pattern-matching-api.chafaaouchaou.online/api/search/text', {
+      const response = await fetch('https://pattern-matching-api.chafaaouchaou.online/api/search/text', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
